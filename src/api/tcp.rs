@@ -11,7 +11,6 @@ pub struct RobotArm {
 
 impl RobotArm {
     pub async fn start_tcp(address: &str) -> Result<Self, Box<dyn Error>> {
-        println!("Starting TCP connection with {}", address);
         let mut stream = TcpStream::connect(address).await?;
         // Send Gripper Reset Request
         println!("Resetting Gripper RQ");
@@ -31,16 +30,14 @@ impl RobotArm {
             .unwrap();
         tokio::time::sleep(Duration::from_secs(3)).await;
 
+        println!("Starting TCP connection with {}", address);
         Ok(RobotArm { stream })
     }
 
-    pub fn build_script(_position: Position) {
-    }
-
-    pub async fn send_script(&mut self, script: &str) -> Result<(), Box<dyn Error>> {
+    pub async fn send_script(&mut self, position: Position) -> Result<(), Box<dyn Error>> {
+        let start = position.dice_position;
+        let end = position.roll_position;
         self.stream.write_all(script.as_bytes()).await?;
         Ok(())
     }
-
-    pub fn 
 }
