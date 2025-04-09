@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,12 +9,13 @@
     <link rel="stylesheet" href="styles.css">
     <script defer src="script.js"></script>
 </head>
+
 <body>
-    
+
     <div class="container">
         <div class="Header">
             <div>
-                <label >Name: <input type="text" class="playerName"></label>
+                <label>Name: <input type="text" class="playerName"></label>
             </div>
             <div>
                 <label>Class: <input type="text"></label>
@@ -25,27 +27,36 @@
             <H2 class="h2-skills">Stats</H2>
 
             <div class="Statsleft">
-                AC <div class="stat-box"> <input class="stat-box-input" type="number" id="ac"  value="10" max="20" onchange="updateSkills()"></div>
-                STR<div class="stat-box"> <input class="stat-box-input" type="number" id="str" value="10" max="20" onchange="updateSkills()"></div>
-                CON<div class="stat-box"> <input class="stat-box-input" type="number" id="con" value="10" max="20" onchange="updateSkills()"></div>
-                WIS<div class="stat-box"> <input class="stat-box-input" type="number" id="wis" value="10" max="20" onchange="updateSkills()"></div>
+                AC <div class="stat-box"> <input class="stat-box-input" type="number" id="ac" value="10" max="20"
+                        onchange="updateSkills()"></div>
+                STR<div class="stat-box"> <input class="stat-box-input" type="number" id="str" value="10" max="20"
+                        onchange="updateSkills()"></div>
+                CON<div class="stat-box"> <input class="stat-box-input" type="number" id="con" value="10" max="20"
+                        onchange="updateSkills()"></div>
+                WIS<div class="stat-box"> <input class="stat-box-input" type="number" id="wis" value="10" max="20"
+                        onchange="updateSkills()"></div>
 
             </div>
-            <div class ="statsright">
-            Proficiency<div class="stat-box"> <input class="stat-box-input" type="number" id="proficiency" value="2" max="5" onchange="updateSkills()"></div>
-            DEX<div class="stat-box"> <input class="stat-box-input" type="number" id="dex" value="10" max="20" onchange="updateSkills()"></div>
-            INT<div class="stat-box"> <input class="stat-box-input" type="number" id="int" value="10" max="20" onchange="updateSkills()"></div>
-            CHA<div class="stat-box"> <input class="stat-box-input" type="number" id="cha" value="10" max="20" onchange="updateSkills()"></div>
+            <div class="statsright">
+                Proficiency<div class="stat-box"> <input class="stat-box-input" type="number" id="proficiency" value="2"
+                        max="5" onchange="updateSkills()"></div>
+                DEX<div class="stat-box"> <input class="stat-box-input" type="number" id="dex" value="10" max="20"
+                        onchange="updateSkills()"></div>
+                INT<div class="stat-box"> <input class="stat-box-input" type="number" id="int" value="10" max="20"
+                        onchange="updateSkills()"></div>
+                CHA<div class="stat-box"> <input class="stat-box-input" type="number" id="cha" value="10" max="20"
+                        onchange="updateSkills()"></div>
 
             </div>
 
         </div>
 
-        
 
 
 
-        <div class="Abilitys"><h2>Skills</h2>
+
+        <div class="Abilitys">
+            <h2>Skills</h2>
             <div class="skill">
                 <label>
                     <input type="checkbox" id="acrobatics-check" onchange="updateSkills()"> Acrobatics (Dex):
@@ -153,63 +164,65 @@
                     <input type="checkbox" id="survival-check" onchange="updateSkills()"> Survival (Wis):
                 </label>
                 <span id="survival-score">0</span>
-            </div></div>
-
-            <div class="History">
-                <h2>Roll History</h2>
-                <ul id="rollHistory">
-                    <li>No rolls yet.</li>
-                </ul>
-                <button onclick="clearRollHistory()">Clear History</button>
-                <button data-modal-target="#modal" class="modal-roll-open">Roll Page</button>
             </div>
-
         </div>
-           
-    
-      </div>
 
-      <div class="modal active" id="modal">
-        <div class ="modal-header">
+        <div class="History">
+            <h2>Roll History</h2>
+            <ul id="rollHistory">
+                <li>No rolls yet.</li>
+            </ul>
+            <button onclick="clearRollHistory()">Clear History</button>
+            <button data-modal-target="#modal" class="modal-roll-open">Roll Page</button>
+        </div>
+
+    </div>
+
+
+    </div>
+
+    <div class="modal" id="modal">
+        <div class="modal-header">
             <div class="title">Roll Dice</div>
             <button data-modal-close class="close-button">&times;</button>
         </div>
         <div class="modal-body">
-           
-
-                    <div class="roll-container">
-                    
-                
-                        <label for="diceType">Select Dice:</label>
-                        <select class="diceType" id="diceType">
-                            <option value="4">D4</option>
-                            <option value="6">D6</option>
-                            <option value="8">D8</option>
-                            <option value="10">D10</option>
-                            <option value="12">D12</option>
-                            <option value="20" selected>D20</option>
-                        </select>
-                
-                        <label for="bonus">Enter Bonus:</label>
-                        <input class="bonus" type="number" id="bonus" value="0">
-                
-                        <button class="buttonRoll" onclick="rollDice()">Roll</button>
-                    
-                </div>
 
 
-             </div>
-        
-                
-        
-        
-            
+            <div class="roll-container">
+
+
+                <label for="diceType">Select Dice:</label>
+                <select class="diceType" id="diceType">
+                    <option value="4">D4</option>
+                    <option value="6">D6</option>
+                    <option value="8">D8</option>
+                    <option value="10">D10</option>
+                    <option value="12">D12</option>
+                    <option value="20" selected>D20</option>
+                </select>
+
+                <label for="bonus">Enter Bonus:</label>
+                <input class="bonus" type="number" id="bonus" value="0">
+
+                <button class="buttonRoll" onclick="rollDice()">Roll</button>
+
+            </div>
+
 
         </div>
-      </div>
-      <div id="overlay"></div>
 
 
-    
+
+
+
+
+    </div>
+    </div>
+    <div id="overlay"></div>
+
+
+
 </body>
+
 </html>

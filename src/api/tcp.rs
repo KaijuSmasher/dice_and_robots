@@ -34,12 +34,14 @@ impl RobotArm {
         Ok(RobotArm { stream })
     }
 
-    pub async fn send_script(&mut self, position: Position) -> Result<(), Box<dyn Error>> {
+    pub async fn execute_commands(&mut self, position: Position) -> Result<(), Box<dyn Error>> {
         let _start = position.dice_position;
         let _end = position.roll_position;
 
-        let script = "def dice_roll():\n".to_string() + "move";
-        self.stream.write_all(script.as_bytes()).await?;
+        let script = format!("def dice_roll():\n movep(p{:?})\n", _start);
+
+        self.stream.write_all(script.as_bytes()).await.unwrap();
+        tokio::time::sleep(Duration::from_secs(3)).await;
 
         Ok(())
     }

@@ -35,41 +35,50 @@
     overlay.classList.remove('active')
   }
 
+  function rollDice() {
+    var playerName = document.querySelector(".playerName").value;
+    var diceType = document.querySelector(".diceType").value;
+    var bonus = parseInt(document.querySelector(".bonus").value);
 
-var playerName = document.querySelector(".playerName")
-var diceType = document.querySelector(".diceType")
-var bonus = document.querySelector(".bonus")
-var button = document.querySelector(".buttonRoll")
-
-button.addEventListener("click", () => {
-    var obj ={
-      name: playerName.value,
-      dice_to_roll: {
-          dice_used: "D" + diceType.value,
-          bonus: parseInt(bonus.value),
-          result_rolled: 0
-      },
-      history: []
+    var obj = {
+        name: playerName,
+        dice_to_roll: {
+            dice_used: "D" + diceType,
+            bonus: bonus,
+            result_rolled: 0
+        },
+        history: []
     };
 
     fetch("http://localhost:8080/roll", {
-        method:"POST",
-        headers:{
-            "Content-type":"application/json"
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
         },
-        body:JSON.stringify(obj)
+        body: JSON.stringify(obj)
+    })
+    .then(res => res.json())
+    .then(data => {
+        const historyList = document.getElementById("rollHistory");
+        
+        [...historyList.children].forEach(child => {
+          if (child.textContent.trim() === "No rolls yet.") {
+              historyList.removeChild(child);
+          }
+      });
+       const rawResult = data.dice_to_roll.result_rolled - data.dice_to_roll.bonus;
+        const newItem = document.createElement("li");
+        newItem.textContent = `${data.name}: Rolled a ${data.dice_to_roll.result_rolled} with a '${data.dice_to_roll.dice_used}' (${rawResult}) Bonus: (${data.dice_to_roll.bonus})`;
+        //newItem.textContent = `${data.name} rolled a ${data.dice_to_roll.dice_used}: ${data.dice_to_roll.result_rolled} (Bonus: ${data.dice_to_roll.bonus})`;
+        historyList.appendChild(newItem);
+    })
+    .catch(err => {
+        console.error("Fehler beim Verarbeiten der Antwort:", err);
     });
-})
-.then(res => res.json())
-.then(data => {
-    const historyList = document.getElementById("rollHistory");
-    const newItem = document.createElement("li");
-    newItem.textContent = `Roll result: ${data.result_rolled}`;
-    historyList.appendChild(newItem);
-})
-.catch(err => {
-    console.error("Fehler beim Verarbeiten der Antwort:", err);
-});
+}
+
+
+
 
 function clearRollHistory() {
   const historyList = document.getElementById("rollHistory");
@@ -127,6 +136,8 @@ function updateSkills() {
 }
 
 updateSkills();
+
+
 
 
 

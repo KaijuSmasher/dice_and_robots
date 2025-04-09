@@ -1,29 +1,20 @@
+use std::io;
+
 use crate::{
     api::{self},
     model::{
         player::Player,
         positions,
-        roll::{self, DiceType, Roll},
+        roll::{DiceType, Roll},
     },
 };
 use actix_files::Files;
 use actix_web::{
-    body::BoxBody, http::header, post, web, App, HttpRequest, HttpResponse, HttpResponseBuilder,
-    HttpServer, Responder,
+    body::BoxBody, http::header, post, web, App, HttpRequest, HttpResponse, HttpServer, Responder,
 };
-use tokio::time::Duration;
 
 #[actix_web::main]
 pub async fn start_server() -> std::io::Result<()> {
-    tokio::spawn(async {
-        println!("Starting Tcp Connection on 192.168.2.40:30002");
-        let mut _tcp = api::tcp::RobotArm::start_tcp("192.168.2.40:30002")
-            .await
-            .unwrap();
-        tokio::time::sleep(Duration::from_secs(5)).await;
-        //let _ = api::tcp::RobotArm::send_script(&mut _tcp).await;
-    });
-
     println!("Starting Webserver on Localhost(http://127.0.0.1:8080)");
     HttpServer::new(move || {
         App::new()
@@ -37,17 +28,33 @@ pub async fn start_server() -> std::io::Result<()> {
 
 #[post("/roll")]
 async fn request(player: web::Json<Player>) -> impl Responder {
-    let _position = positions::Position::create_position(player.dice_to_roll.dice_used);
+    let position = positions::Position::create_position(player.dice_to_roll.dice_used);
+    println!("Starting Tcp Connection on 192.168.2.40:30002");
+    let mut _tcp = api::tcp::RobotArm::start_tcp("192.168.2.40:30002")
+        .await
+        .unwrap();
+    //tokio::time::sleep(Duration::from_secs(5)).await;
+    api::tcp::RobotArm::execute_commands(&mut _tcp, position)
+        .await
+        .unwrap();
 
+    let roll = get_input();
     Player {
         name: player.name.clone(),
         dice_to_roll: Roll {
             dice_used: player.dice_to_roll.dice_used,
             bonus: player.dice_to_roll.bonus,
-            result_rolled: 4,
+            result_rolled: roll + player.dice_to_roll.bonus,
         },
         history: player.history.clone(),
     }
+}
+
+fn get_input() -> i32 {
+    let mut value: String = String::new();
+    println!("Dungeon Master gibt Ergebnis ein: ");
+    io::stdin().read_line(&mut value).unwrap();
+    value.trim().parse().unwrap()
 }
 
 impl Responder for Player {
