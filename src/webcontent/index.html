@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DND Character Sheet</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
 </head>
-
 <body>
-
+    
     <div class="container">
         <div class="Header">
             <div>
-                <label>Name: <input type="text"></label>
+                <label >Name: <input type="text" class="playerName"></label>
             </div>
             <div>
                 <label>Class: <input type="text"></label>
@@ -23,172 +22,194 @@
         </div>
         <div class="Stats">
 
-            <div class="Statsright">
-                AC <div class="stat-box"> <input class="stat-box-input" type="number" id="AC" placeholder="10" max="20">
+            <H2 class="h2-skills">Stats</H2>
+
+            <div class="Statsleft">
+                AC <div class="stat-box"> <input class="stat-box-input" type="number" id="ac"  value="10" max="20" onchange="updateSkills()"></div>
+                STR<div class="stat-box"> <input class="stat-box-input" type="number" id="str" value="10" max="20" onchange="updateSkills()"></div>
+                CON<div class="stat-box"> <input class="stat-box-input" type="number" id="con" value="10" max="20" onchange="updateSkills()"></div>
+                WIS<div class="stat-box"> <input class="stat-box-input" type="number" id="wis" value="10" max="20" onchange="updateSkills()"></div>
+
+            </div>
+            <div class ="statsright">
+            Proficiency<div class="stat-box"> <input class="stat-box-input" type="number" id="proficiency" value="2" max="5" onchange="updateSkills()"></div>
+            DEX<div class="stat-box"> <input class="stat-box-input" type="number" id="dex" value="10" max="20" onchange="updateSkills()"></div>
+            INT<div class="stat-box"> <input class="stat-box-input" type="number" id="int" value="10" max="20" onchange="updateSkills()"></div>
+            CHA<div class="stat-box"> <input class="stat-box-input" type="number" id="cha" value="10" max="20" onchange="updateSkills()"></div>
+
+            </div>
+
+        </div>
+
+        
+
+
+
+        <div class="Abilitys"><h2>Skills</h2>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="acrobatics-check" onchange="updateSkills()"> Acrobatics (Dex):
+                </label>
+                <span id="acrobatics-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="animalHandling-check" onchange="updateSkills()"> Animal Handling (Wis):
+                </label>
+                <span id="animalHandling-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="arcana-check" onchange="updateSkills()"> Arcana (Int):
+                </label>
+                <span id="arcana-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="athletics-check" onchange="updateSkills()"> Athletics (Str):
+                </label>
+                <span id="athletics-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="deception-check" onchange="updateSkills()"> Deception (Cha):
+                </label>
+                <span id="deception-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="history-check" onchange="updateSkills()"> History (Int):
+                </label>
+                <span id="history-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="insight-check" onchange="updateSkills()"> Insight (Wis):
+                </label>
+                <span id="insight-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="intimidation-check" onchange="updateSkills()"> Intimidation (Cha):
+                </label>
+                <span id="intimidation-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="investigation-check" onchange="updateSkills()"> Investigation (Int):
+                </label>
+                <span id="investigation-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="medicine-check" onchange="updateSkills()"> Medicine (Wis):
+                </label>
+                <span id="medicine-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="nature-check" onchange="updateSkills()"> Nature (Int):
+                </label>
+                <span id="nature-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="perception-check" onchange="updateSkills()"> Perception (Wis):
+                </label>
+                <span id="perception-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="performance-check" onchange="updateSkills()"> Performance (Cha):
+                </label>
+                <span id="performance-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="persuasion-check" onchange="updateSkills()"> Persuasion (Cha):
+                </label>
+                <span id="persuasion-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="religion-check" onchange="updateSkills()"> Religion (Int):
+                </label>
+                <span id="religion-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="sleightOfHand-check" onchange="updateSkills()"> Sleight of Hand (Dex):
+                </label>
+                <span id="sleightOfHand-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="stealth-check" onchange="updateSkills()"> Stealth (Dex):
+                </label>
+                <span id="stealth-score">0</span>
+            </div>
+            <div class="skill">
+                <label>
+                    <input type="checkbox" id="survival-check" onchange="updateSkills()"> Survival (Wis):
+                </label>
+                <span id="survival-score">0</span>
+            </div></div>
+
+            <div class="History">
+                <h2>Roll History</h2>
+                <ul id="rollHistory">
+                    <li>No rolls yet.</li>
+                </ul>
+                <button onclick="clearRollHistory()">Clear History</button>
+                <button data-modal-target="#modal" class="modal-roll-open">Roll Page</button>
+            </div>
+
+        </div>
+           
+    
+      </div>
+
+      <div class="modal active" id="modal">
+        <div class ="modal-header">
+            <div class="title">Roll Dice</div>
+            <button data-modal-close class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+           
+
+                    <div class="roll-container">
+                    
+                
+                        <label for="diceType">Select Dice:</label>
+                        <select class="diceType" id="diceType">
+                            <option value="4">D4</option>
+                            <option value="6">D6</option>
+                            <option value="8">D8</option>
+                            <option value="10">D10</option>
+                            <option value="12">D12</option>
+                            <option value="20" selected>D20</option>
+                        </select>
+                
+                        <label for="bonus">Enter Bonus:</label>
+                        <input class="bonus" type="number" id="bonus" value="0">
+                
+                        <button class="buttonRoll" onclick="rollDice()">Roll</button>
+                    
                 </div>
-                STR<div class="stat-box"> <input class="stat-box-input" type="number" id="STR" placeholder="10"
-                        max="20"></div>
-                CON<div class="stat-box"> <input class="stat-box-input" type="number" id="CON" placeholder="10"
-                        max="20"></div>
-                WIS<div class="stat-box"> <input class="stat-box-input" type="number" id="WIS" placeholder="10"
-                        max="20"></div>
-
-            </div>
-            <div class="statsleft">
-                Proficiency<div class="stat-box"> <input class="stat-box-input" type="number" id="Proficiency"
-                        placeholder="0" max="5"></div>
-                DEX<div class="stat-box"> <input class="stat-box-input" type="number" id="DEX" placeholder="10"
-                        max="20"></div>
-                INT<div class="stat-box"> <input class="stat-box-input" type="number" id="INT" placeholder="10"
-                        max="20"></div>
-                CHA<div class="stat-box"> <input class="stat-box-input" type="number" id="CHA" placeholder="10"
-                        max="20"></div>
-
-            </div>
 
 
-            <!-- AC <div class="stat-box"> <input class="stat-box-input" type="number" id="AC"  placeholder="10" max="20"></div>
-            INI<div class="stat-box"> <input class="stat-box-input" type="number" id="INI" placeholder="10" max="20"></div>
-            STR<div class="stat-box"> <input class="stat-box-input" type="number" id="STR" placeholder="10" max="20"></div>
-            DEX<div class="stat-box"> <input class="stat-box-input" type="number" id="DEX" placeholder="10" max="20"></div>
-            CON<div class="stat-box"> <input class="stat-box-input" type="number" id="CON" placeholder="10" max="20"></div>
-            INT<div class="stat-box"> <input class="stat-box-input" type="number" id="INT" placeholder="10" max="20"></div>
-            WIS<div class="stat-box"> <input class="stat-box-input" type="number" id="WIS" placeholder="10" max="20"></div>
-            CHA<div class="stat-box"> <input class="stat-box-input" type="number" id="CHA" placeholder="10" max="20"></div>
-            Proficiency<div class="stat-box"> <input class="stat-box-input" type="number" id="Proficiency" placeholder="0" max="5"></div>-->
+             </div>
+        
+                
+        
+        
+            
+
         </div>
+      </div>
+      <div id="overlay"></div>
 
 
-
-
-
-        <div class="Abilitys">
-            <h2>Skills</h2>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="acrobaticsProficient" onchange="updateSkills()"> Acrobatics (Dex):
-                </label>
-                <span id="acrobatics">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="animalHandlingProficient" onchange="updateSkills()"> Animal Handling
-                    (Wis):
-                </label>
-                <span id="animalHandling">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="arcanaProficient" onchange="updateSkills()"> Arcana (Int):
-                </label>
-                <span id="arcana">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="athleticsProficient" onchange="updateSkills()"> Athletics (Str):
-                </label>
-                <span id="athletics">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="deceptionProficient" onchange="updateSkills()"> Deception (Cha):
-                </label>
-                <span id="deception">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="historyProficient" onchange="updateSkills()"> History (Int):
-                </label>
-                <span id="history">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="insightProficient" onchange="updateSkills()"> Insight (Wis):
-                </label>
-                <span id="insight">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="intimidationProficient" onchange="updateSkills()"> Intimidation (Cha):
-                </label>
-                <span id="intimidation">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="investigationProficient" onchange="updateSkills()"> Investigation (Int):
-                </label>
-                <span id="investigation">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="medicineProficient" onchange="updateSkills()"> Medicine (Wis):
-                </label>
-                <span id="medicine">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="natureProficient" onchange="updateSkills()"> Nature (Int):
-                </label>
-                <span id="nature">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="perceptionProficient" onchange="updateSkills()"> Perception (Wis):
-                </label>
-                <span id="perception">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="performanceProficient" onchange="updateSkills()"> Performance (Cha):
-                </label>
-                <span id="performance">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="persuasionProficient" onchange="updateSkills()"> Persuasion (Cha):
-                </label>
-                <span id="persuasion">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="religionProficient" onchange="updateSkills()"> Religion (Int):
-                </label>
-                <span id="religion">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="sleightOfHandProficient" onchange="updateSkills()"> Sleight of Hand
-                    (Dex):
-                </label>
-                <span id="sleightOfHand">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="stealthProficient" onchange="updateSkills()"> Stealth (Dex):
-                </label>
-                <span id="stealth">0</span>
-            </div>
-            <div class="skill">
-                <label>
-                    <input type="checkbox" id="survivalProficient" onchange="updateSkills()"> Survival (Wis):
-                </label>
-                <span id="survival">0</span>
-            </div>
-        </div>
-
-        <div class="History">
-            <h2>Roll History</h2>
-            <ul id="rollHistory">
-                <li>No rolls yet.</li>
-            </ul>
-            <button onclick="clearRollHistory()">Clear History</button>
-        </div>
-
-    </div>
-
-
-    </div>
-
+    
 </body>
-
 </html>

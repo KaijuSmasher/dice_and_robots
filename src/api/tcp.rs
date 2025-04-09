@@ -35,9 +35,12 @@ impl RobotArm {
     }
 
     pub async fn send_script(&mut self, position: Position) -> Result<(), Box<dyn Error>> {
-        let start = position.dice_position;
-        let end = position.roll_position;
+        let _start = position.dice_position;
+        let _end = position.roll_position;
+
+        let script = "def dice_roll():\n".to_string() + "move";
         self.stream.write_all(script.as_bytes()).await?;
+
         Ok(())
     }
 }
